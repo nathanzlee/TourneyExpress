@@ -1,0 +1,17 @@
+.wrapper {
+    display: grid;
+    grid-template-rows: 100px 1fr;
+}
+
+#filterBox, #tourneyList {
+    border-radius: 10px;
+    background-color: #dddddd;
+    margin: 10px 30px 10px 30px;
+}
+
+#filterBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}

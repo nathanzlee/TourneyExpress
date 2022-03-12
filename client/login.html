@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body>
+        <input id="username" type="text" placeholder="username">
+        <input id="password" type="password" placeholder="password">
+        <button id="login">Log In</button>
+
+        <script>
+            const $login = document.querySelector('#login');
+
+            $login.addEventListener('click', () => {
+                const username = document.querySelector('#username').value
+                    , password = document.querySelector('#password').value;
+                
+                userData = {username: username, password: password};
+
+                fetch('/user/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                }).then(res => res.json()).then(data => console.log(data));
+            })
+        </script>
+    </body>
+</html>
