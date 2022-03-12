@@ -7,6 +7,7 @@ body {
     display: grid;
     grid-template-rows: 100px 1fr;
     margin: 0;
+    overflow: hidden;
 }
 
 header {
@@ -43,4 +44,8 @@ header {
 
 .nav a:hover {
     color: #5948d9;
+}
+
+.wrapper {
+    background-color: #DDDDDD;
 }
