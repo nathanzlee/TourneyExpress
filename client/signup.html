@@ -13,7 +13,7 @@
         <script>
             const $newuser = document.querySelector('.newuser');
 
-            $newuser.addEventListener('click', async () => {
+            $newuser.addEventListener('click', () => {
                 const firstName = document.querySelector('#firstName').value
                 , lastName = document.querySelector('#lastName').value
                 , username = document.querySelector('#username').value
@@ -23,15 +23,17 @@
 
                 const userData = {firstName: firstName, lastName: lastName, username: username, email: email, phone: phone, dateJoined: new Date(), password: password, salt: '', tourneys: []};
                 console.log(userData);
-                const res = await fetch('/user/signup', {
+                const res = fetch('/signup', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(userData)
-                });
-
-                console.log(res.text())
+                }).then(res => res.json()).then(data => {
+                    if (data.msg == 'Success') {
+                        window.location.href = '/login';
+                    }
+                });;
             })
         </script>
     </body>

@@ -1,24 +1,62 @@
 import express from 'express';
+import session from 'express-session';
+import mongoSession from 'connect-mongodb-session';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import tourneys from './routes/tourneys.js';
-import user from './routes/user.js';
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import User from './schemas/user.js';
 
+//---------- Global vars -----------
 const app = express();
 const __dirname = path.resolve();
+const MongoDBSession = mongoSession(session);
 
+
+//---------- Middleware -----------
 app.use(bodyParser.json({limit: '50mb', extended: true}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.static(path.join(__dirname, '../client/styles')));
 app.use(cors());
 app.use('/tournaments', tourneys);
-app.use('/user', user);
 
-app.get('/', (req, res) => {
+
+const db_uri = 'mongodb+srv://admin:admin@cluster0.bmsy0.mongodb.net/TourneyExpressData?retryWrites=true&w=majority';
+const PORT = process.env.PORT || 3000;
+
+function startServer() {
+    app.listen(PORT, () => {
+        console.log(`Running on port ${PORT}`);
+    });
+};
+
+mongoose.connect(db_uri, startServer);
+
+const store = new MongoDBSession({
+	uri: db_uri,
+	collection: 'sessions'
+})
+
+app.use(session({
+	secret: 'Omnipong sucks',
+	resave: false,
+	saveUninitialized: false,
+	store: store
+}))
+
+const isAuth = (req, res, next) => {
+	if (req.session.isAuth) {
+		next();
+	} else {
+		res.redirect('/login');
+	}
+}
+
+//---------- Get Routes -----------
+app.get('/', isAuth, (req, res) => {
     const filePath = path.join(__dirname, '../client/index.html');
 	res.sendFile(filePath);
 });
@@ -33,20 +71,52 @@ app.get('/login', (req, res) => {
 	res.sendFile(filePath);
 })
 
-app.get('/tournaments', (req, res) => {
+app.get('/tournaments', isAuth, (req, res) => {
 	const filePath = path.join(__dirname, '../client/tourneys.html');
 	res.sendFile(filePath);
 })
 
-
-
-const db_url = 'mongodb+srv://admin:admin@cluster0.bmsy0.mongodb.net/TourneyExpressData?retryWrites=true&w=majority';
-const PORT = process.env.PORT || 3000;
-
-function startServer() {
-    app.listen(PORT, () => {
-        console.log(`Running on port ${PORT}`);
+//---------- Post Routes -----------
+app.post('/signup', (req, res) => {
+    const user = new User(req.body)
+        , salt = crypto.randomBytes(128).toString('base64')
+        , password = req.body.password;
+    crypto.pbkdf2(password, salt, 10000, 256, 'sha256', (err, hash) => {
+        if (err) {
+            return res.send('error');
+        }
+        user.password = hash.toString('base64');
+        user.salt = salt;
+        try {
+            user.save();
+			res.json({msg: 'Success'});
+        } catch (e) {
+            console.log(e.message);
+        }
+        
     });
-};
+})
 
-mongoose.connect(db_url, startServer);
+app.post('/login', (req, res) => {
+    console.log("Called");
+    const user = User.find({username: req.body.username}, (err, person) => {
+        if (err || person.length == 0) {
+			console.log(err);
+            return res.json({err: 'Wrong username'});
+        } 
+		console.log(person[0]);
+        const salt = person[0].salt, password = req.body.password;
+        crypto.pbkdf2(password, salt, 10000, 256, 'sha256', (e, hash) => {
+            if (e) {
+				console.log(e);
+                return res.send('error');
+            }
+            if (hash.toString('base64') == person[0].password) {
+				req.session.isAuth = true;
+				return res.json({msg: 'Success'});
+            } else {
+                return res.json({err: 'Wrong password'});
+            }
+        })
+    })
+})
