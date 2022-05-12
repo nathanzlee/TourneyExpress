@@ -1,5 +1,10 @@
+:root {
+	--primary-color: #6b5dd1;
+}
+
 * {
     font-family: 'Montserrat', sans-serif; 
+    box-sizing: border-box;
 }
 body {
     height: 100vh;
@@ -16,7 +21,7 @@ header {
 }
 
 header {
-    border-bottom: 2px solid #6b5dd1;
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .logo {
@@ -35,15 +40,20 @@ header {
     list-style: none;
     font-size: 20px;
     font-weight: bold;
-    color: #6b5dd1;
+    color: var(--primary-color);
 }
 
 .nav a {
+    color: var(--primary-color);
     text-decoration: none;
 }
 
 .nav a:hover {
-    color: #5948d9;
+    color: #5948d9 !important;
+}
+
+.nav a:visited {
+    color: var(--primary-color);
 }
 
 .wrapper {

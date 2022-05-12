@@ -8,6 +8,7 @@ const tourneySchema = mongoose.Schema({
         default: []
     },
     name: {type: String},
+    entryForm: {type: String},
     location: {type: String},
     startDate: {type: Date},
     endDate: {type: Date},

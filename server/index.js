@@ -42,6 +42,7 @@ const store = new MongoDBSession({
 
 app.use(session({
 	secret: 'Omnipong sucks',
+	cookie: {maxAge: 3600000},
 	resave: false,
 	saveUninitialized: false,
 	store: store
@@ -73,6 +74,11 @@ app.get('/login', (req, res) => {
 
 app.get('/tournaments', isAuth, (req, res) => {
 	const filePath = path.join(__dirname, '../client/tourneys.html');
+	res.sendFile(filePath);
+})
+
+app.get('/dashboard', isAuth, (req, res) => {
+	const filePath = path.join(__dirname, '../client/dashboard.html');
 	res.sendFile(filePath);
 })
 
@@ -113,8 +119,10 @@ app.post('/login', (req, res) => {
             }
             if (hash.toString('base64') == person[0].password) {
 				req.session.isAuth = true;
+                console.log("success")
 				return res.json({msg: 'Success'});
             } else {
+                console.log("wrong pw")
                 return res.json({err: 'Wrong password'});
             }
         })
