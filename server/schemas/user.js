@@ -10,6 +10,9 @@ const userSchema = mongoose.Schema({
     password: {type: String},
     salt: {type: String},
     membership: {type: String},
+    club: {type: String},
+    birthdate: {type: Date},
+    gender: {type: String},
     tourneys: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'tourney',

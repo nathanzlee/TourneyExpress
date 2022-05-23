@@ -25,7 +25,7 @@ app.use('/tournaments', tourneys);
 
 
 const db_uri = 'mongodb+srv://admin:admin@cluster0.bmsy0.mongodb.net/TourneyExpressData?retryWrites=true&w=majority';
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 function startServer() {
     app.listen(PORT, () => {
@@ -42,18 +42,28 @@ const store = new MongoDBSession({
 
 app.use(session({
 	secret: 'Omnipong sucks',
-	cookie: {maxAge: 3600000},
+	cookie: {maxAge: 300000},
 	resave: false,
 	saveUninitialized: false,
 	store: store
 }))
 
 const isAuth = (req, res, next) => {
-	if (req.session.isAuth) {
+    console.log("session: " + req.session.isAuth);
+    if (req.session.isAuth) {
 		next();
-	} else {
-		res.redirect('/login');
-	}
+    } else {
+        res.redirect('/login');
+    }
+}
+
+const isNotAuth = (req, res, next) => {
+    console.log(req.session.isAuth)
+    if (!req.session.isAuth) {
+		next();
+    } else {
+        res.redirect('/');
+    }
 }
 
 //---------- Get Routes -----------
@@ -62,14 +72,25 @@ app.get('/', isAuth, (req, res) => {
 	res.sendFile(filePath);
 });
 
-app.get('/signup', (req, res) => {
+app.get('/signup', isNotAuth, (req, res) => {
     const filePath = path.join(__dirname, '../client/signup.html');
 	res.sendFile(filePath);
 });
 
-app.get('/login', (req, res) => {
+app.get('/login', isNotAuth, (req, res) => {
+    req.session.isAuth = false;
 	const filePath = path.join(__dirname, '../client/login.html');
 	res.sendFile(filePath);
+})
+
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            throw err;
+        }
+
+        res.redirect('/login');
+    })
 })
 
 app.get('/tournaments', isAuth, (req, res) => {
@@ -118,13 +139,15 @@ app.post('/login', (req, res) => {
                 return res.send('error');
             }
             if (hash.toString('base64') == person[0].password) {
-				req.session.isAuth = true;
-                console.log("success")
-				return res.json({msg: 'Success'});
+                req.session.isAuth = true;
+                console.log("success");
+                res.json({msg: "success"});
             } else {
                 console.log("wrong pw")
-                return res.json({err: 'Wrong password'});
+                res.json({err: 'Wrong password'});
             }
         })
     })
 })
+
+

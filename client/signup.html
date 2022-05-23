@@ -31,9 +31,9 @@
                     body: JSON.stringify(userData)
                 }).then(res => res.json()).then(data => {
                     if (data.msg == 'Success') {
-                        window.location.href = '/login';
+                        location.href = '/login';
                     }
-                });;
+                });
             })
         </script>
     </body>
