@@ -13,6 +13,7 @@ const tourneySchema = mongoose.Schema({
     startDate: {type: Date},
     endDate: {type: Date},
     contactName: {type: String},
+    contactEmail: {type: String},
     contactPhone: {type: String},
     level: {type: Number},
     events: {
