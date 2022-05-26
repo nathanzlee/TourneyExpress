@@ -45,5 +45,13 @@
             </div>
             <div class="infoBox"></div>
         </div> -->
+        <script>
+            async function getuserinfo() {
+                request = await fetch('/dashboard/info')
+                response = await request.json();
+                console.log(response)
+                return response
+            }
+        </script>
     </body>
 </html>

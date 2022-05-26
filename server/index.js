@@ -104,6 +104,11 @@ app.get('/dashboard', isAuth, (req, res) => {
 	res.sendFile(filePath);
 })
 
+app.get('/dashboard/info', isAuth, (req, res) => {
+    const user = req.session.user;
+	res.json(user);
+})
+
 //---------- Post Routes -----------
 app.post('/signup', (req, res) => {
     const user = new User(req.body)
@@ -141,7 +146,7 @@ app.post('/login', (req, res) => {
             }
             if (hash.toString('base64') == person[0].password) {
                 req.session.isAuth = true;
-                req.session.user = person[0]._id;
+                req.session.user = person[0];
                 console.log("success");
                 res.json({msg: "success"});
             } else {
