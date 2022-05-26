@@ -99,6 +99,11 @@ app.get('/tournaments', isAuth, (req, res) => {
 	res.sendFile(filePath);
 })
 
+app.get('/tournaments/create', isAuth, (req, res) => {
+	const filePath = path.join(__dirname, '../client/tourney_list.html');
+	res.sendFile(filePath);
+})
+
 app.get('/dashboard', isAuth, (req, res) => {
 	const filePath = path.join(__dirname, '../client/dashboard.html');
 	res.sendFile(filePath);

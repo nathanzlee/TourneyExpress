@@ -28,6 +28,8 @@
                 <li>Tournaments Played: </li>
                 <li>Leagues Registered In: </li>
             </ul>
+            <ul id = "tournaments">
+            </ul>
         </div>
         <!-- <div class="wrapper">
             <div class="infoHeader">
@@ -52,6 +54,13 @@
                 console.log(response)
                 return response
             }
+            const userinfo = getuserinfo()
+            const tourneyList = document.querySelector("#tournaments")
+            userinfo.tourneys.forEach(tourney => {
+                const t = document.createElement("li")
+                t.innerText = tourney.name
+                tourneyList.appendChild(t)
+            });
         </script>
     </body>
 </html>
