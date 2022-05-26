@@ -44,7 +44,7 @@ const store = new MongoDBSession({
 
 app.use(session({
 	secret: 'Omnipong sucks',
-	cookie: {maxAge: 300000},
+	cookie: {maxAge: 600000},
 	resave: false,
 	saveUninitialized: false,
 	store: store
@@ -101,7 +101,7 @@ app.get('/tournaments', isAuth, (req, res) => {
 })
 
 app.get('/tournaments/create', isAuth, (req, res) => {
-	const filePath = path.join(__dirname, '../client/tourney_list.html');
+	const filePath = path.join(__dirname, '../client/new_tourney.html');
 	res.sendFile(filePath);
 })
 

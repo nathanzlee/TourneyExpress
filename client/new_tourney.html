@@ -1,58 +1,61 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <style>
+            .event {
+                display: flex;
+                flex-direction: row;
+            }
+            .age, .rating {
+                display: flex;
+                flex-direction: row;
+            }
+        </style>
+    </head>
     <body>
-        <span>Tournament Name: </span><input id="Name" type="text" placeholder="name">
-        <span>Start Date: </span><input id = "StartDate" type = "date">
-        <span>End Date: </span><input id = "EndDate" type = "date">
-        <span>Upload Entry Form: </span><input id = "Entry Form" type="file" name="upload" accept="application/pdf,application/vnd.ms-excel" />
-        <span>Contact Name: </span><input id="contactName" type="text" placeholder="name">
-        <span>Contact Phone Number: </span><input id="contactPhone" type="text" placeholder="000-000-0000">
-        <span>Contact Email Address: </span><input id="contactEmail" type="text" placeholder="tourney.director@tourneyexpress.com">
-        <input id="event1" type="text" placeholder="Open Singles">
+        <span>Tournament Name: </span><input id="Name" type="text" placeholder="name"><br>
+        <span>Start Date: </span><input id = "StartDate" type = "date"><br>
+        <span>End Date: </span><input id = "EndDate" type = "date"><br>
+        <span>Upload Entry Form: </span><input id = "Entry Form" type="file" name="upload" accept="application/pdf,application/vnd.ms-excel" /><br>
+        <span>Contact Name: </span><input id="contactName" type="text" placeholder="name"><br>
+        <span>Contact Phone Number: </span><input id="contactPhone" type="text" placeholder="000-000-0000"><br>
+        <span>Contact Email Address: </span><input id="contactEmail" type="text" placeholder="tourney.director@tourneyexpress.com"><br>
         <span>Add Event</span><button class="add">Add</button>
-        <span>Remove Event</span><button class="remove">Remove</button>
         <div id="event_list"></div>
-        <input type="hidden" value="1" id="total_chq">
         <button class = "create"> Create Tournament </button>
         <script>
+            const $add = document.querySelector('.add');
+            const $event = document.querySelector('#event');
+            const eventList = document.querySelector("#event_list");
+
             $add.addEventListener('click', () => {
-                var new_event_num =  + 1;
-                var new_event = `<input type='text' id='event${new_event_num}'>`;
-                const eventList = document.querySelector("#event_list")
-                const t = document.createElement("li")
+
+                var new_event = 
+                `
+                    <div class="event">
+                        <div class="eventName"><input type="text" placeholder="Open Singles"></div>
+                        <div class="format">
+                            <select>
+                                <option>RR</option>
+                                <option>SE</option>
+                            </select>
+                        </div>
+                        <div class="age"><input type="number" placeholder="minAge"><input type="number" placeholder="maxAge"></div>
+                        <div class="rating"><input type="number" placeholder="minRating"><input type="number" placeholder="maxRating"></div>
+                        <div class="capacity"><input type="number"></div>
+                        <div class="fee"><input type="number"></div>
+                        <div class="remove"><button>Remove</button></div>
+                    </div>
+                `;
+                
+                const t = document.createElement('div')
                 t.innerHTML = new_event;
-                tourneyList.appendChild(t);
+                eventList.appendChild(t);
             })
 
 
             const $create = document.querySelector('.create');
-
-            $newuser.addEventListener('click', () => {
-                const firstName = document.querySelector('#firstName').value
-                , lastName = document.querySelector('#lastName').value
-                , username = document.querySelector('#username').value
-                , email = document.querySelector('#email').value
-                , phone = document.querySelector('#phone').value
-                , password = document.querySelector('#password').value
-                , gender = document.querySelector('#gender').value
-                , birthdate = document.querySelector('#birthdate').valueAsDate
-                , club = document.querySelector("#club").value
-                , rating = document.querySelector("#rating").value;
-
-                const userData = {rating: rating, firstName: firstName, lastName: lastName, username: username, email: email, phone: phone, dateJoined: new Date(), password: password, salt: '', tourneys: [], gender: gender, birthdate: birthdate, club: club};
-                console.log(userData);
-                const res = fetch('/signup', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(userData)
-                }).then(res => res.json()).then(data => {
-                    if (data.msg == 'Success') {
-                        location.href = '/login';
-                    }
-                });
-            })
+            
         </script>
     </body>
 </html>
