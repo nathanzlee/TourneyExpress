@@ -9,6 +9,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import User from './schemas/user.js';
+import { Recoverable } from 'repl';
 
 //---------- Global vars -----------
 const app = express();
@@ -94,7 +95,7 @@ app.get('/logout', (req, res) => {
 })
 
 app.get('/tournaments', isAuth, (req, res) => {
-	const filePath = path.join(__dirname, '../client/tourneys.html');
+	const filePath = path.join(__dirname, '../client/tourney_list.html');
 	res.sendFile(filePath);
 })
 
@@ -140,6 +141,7 @@ app.post('/login', (req, res) => {
             }
             if (hash.toString('base64') == person[0].password) {
                 req.session.isAuth = true;
+                req.session.user = person[0]._id;
                 console.log("success");
                 res.json({msg: "success"});
             } else {

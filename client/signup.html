@@ -8,7 +8,19 @@
         <input id="email" type="text" placeholder="email">
         <input id="phone" type="text" placeholder="phone number">
         <input id="password" type="password" placeholder="password">
-        <button class="newuser">Sign Up</button>
+        <select id = "gender">
+            <option value = "male"> male </option>
+            <option value = "female"> female </option>
+        </select> 
+        <select id = "club">
+            <option value = "TTA"> TTA </option>
+            <option value = "ICC"> ICC </option>
+            <option value = "888"> 888 </option>
+            <option value = "PongPlanet"> Pong Planet </option>
+        </select>
+        <input id = "birthdate" type = "date">
+        <button class = "newuser"> Sign Up </button>
+        <input id="phone" type="number" placeholder="rating">
 
         <script>
             const $newuser = document.querySelector('.newuser');
@@ -19,9 +31,13 @@
                 , username = document.querySelector('#username').value
                 , email = document.querySelector('#email').value
                 , phone = document.querySelector('#phone').value
-                , password = document.querySelector('#password').value;
+                , password = document.querySelector('#password').value
+                , gender = document.querySelector('#gender').value
+                , birthdate = document.querySelector('#birthdate').valueAsDate
+                , club = document.querySelector("#club").value
+                , rating = document.querySelector("#rating").value;
 
-                const userData = {firstName: firstName, lastName: lastName, username: username, email: email, phone: phone, dateJoined: new Date(), password: password, salt: '', tourneys: []};
+                const userData = {rating: rating, firstName: firstName, lastName: lastName, username: username, email: email, phone: phone, dateJoined: new Date(), password: password, salt: '', tourneys: [], gender: gender, birthdate: birthdate, club: club};
                 console.log(userData);
                 const res = fetch('/signup', {
                     method: 'POST',

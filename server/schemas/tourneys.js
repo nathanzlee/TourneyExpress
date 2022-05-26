@@ -14,7 +14,12 @@ const tourneySchema = mongoose.Schema({
     endDate: {type: Date},
     contactName: {type: String},
     contactPhone: {type: String},
-    level: {type: Number}
+    level: {type: Number},
+    events: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "event",
+        default: []
+    }
 })
 
 const tourney = mongoose.model("tourney", tourneySchema)

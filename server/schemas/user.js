@@ -17,7 +17,8 @@ const userSchema = mongoose.Schema({
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'tourney',
         default: []
-    }
+    },
+    rating: {type: Number}
 })
 
 const user = mongoose.model('user', userSchema)
