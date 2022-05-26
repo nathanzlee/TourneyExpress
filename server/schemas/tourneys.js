@@ -16,8 +16,7 @@ const tourneySchema = mongoose.Schema({
     contactPhone: {type: String},
     level: {type: Number},
     events: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: "event",
+        type: Array,
         default: []
     }
 })

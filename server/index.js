@@ -9,6 +9,7 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import User from './schemas/user.js';
+import Tourney from './schemas/tourneys.js'
 import { Recoverable } from 'repl';
 
 //---------- Global vars -----------
@@ -161,5 +162,26 @@ app.post('/login', (req, res) => {
         })
     })
 })
+
+// app.post('/tournaments/create', isAuth, (req, res) => {
+// 	const tourney = new Tourney(req.body);
+//     try {
+//         tourney.save();
+//         res.json({msg: 'Success'});
+//     } catch (e) {
+//         console.log(e.message);
+//     }
+// })
+
+// app.post('/tournaments/register/:id', isAuth, (req, res) => {
+//     const tourney = Tourney.findOneAndUpdate(
+//         {"_id": },
+//         {
+//             "$push": {
+//                 "players":
+//             }
+//         }
+//     )
+// })
 
 
