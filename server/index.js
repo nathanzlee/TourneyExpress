@@ -140,7 +140,9 @@ app.post('/login', (req, res) => {
             }
             if (hash.toString('base64') == person[0].password) {
                 req.session.isAuth = true;
+                req.session.user = person[0]._id;
                 console.log("success");
+                console.log("user:", req.user);
                 res.json({msg: "success"});
             } else {
                 console.log("wrong pw")
