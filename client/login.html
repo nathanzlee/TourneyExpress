@@ -38,6 +38,7 @@
 			   <div class="con">
 			   <!--     Start  header Content  -->
 			   <header class="head-form">
+				  <h2>TourneyExpress</h2>
 				  <h2>Log In</h2>
 				  <!--     A welcome message or an explanation of the login form -->
 				  <p>login here using your username and password</p>
@@ -80,10 +81,11 @@
 			<!--      Forgot Password button-->
 				  <button class="btn submits frgt-pass">Forgot Password</button>
 			<!--     Sign Up button -->
-				  <button class="btn submits sign-up">Sign Up 
-			<!--         Sign Up font icon -->
-				  <i class="fa fa-user-plus" aria-hidden="true"></i>
-				  </button>
+				<button class="btn submits sign-up" id = "signup" >
+					Sign Up 
+				<i class="fa fa-user-plus" aria-hidden="true"></i>
+				</button>
+				  
 			<!--      End Other the Division -->
 			   </div>
 				 
@@ -94,6 +96,12 @@
 			</form>
 			</div>
 		<script>
+
+			const $signup = document.querySelector("#signup")
+			$signup.addEventListener('click', e => {
+				location.href = "/signup";
+			})
+
 			const $login = document.querySelector('#login');
 
 			async function login() {
