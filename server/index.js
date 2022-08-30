@@ -26,7 +26,7 @@ app.use(cors());
 app.use('/tournaments', tourneys);
 
 
-const db_uri = 'mongodb+srv://admin:admin@cluster0.bmsy0.mongodb.net/TourneyExpressData?retryWrites=true&w=majority';
+const db_uri = 'mongodb+srv://admin:admin123@cluster0.bmsy0.mongodb.net/TourneyExpressData?retryWrites=true&w=majority';
 const PORT = process.env.PORT || 8000;
 
 function startServer() {
