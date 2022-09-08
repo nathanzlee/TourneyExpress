@@ -10,7 +10,6 @@ import path from 'path';
 import crypto from 'crypto';
 import User from './schemas/user.js';
 import Tourney from './schemas/tourneys.js'
-import { Recoverable } from 'repl';
 
 //---------- Global vars -----------
 const app = express();
@@ -60,7 +59,7 @@ const isAuth = (req, res, next) => {
 }
 
 const isNotAuth = (req, res, next) => {
-    console.log(req.session.isAuth)
+    console.log("fuck", req.session.isAuth)
     if (!req.session.isAuth) {
 		next();
     } else {

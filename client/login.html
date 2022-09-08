@@ -52,7 +52,7 @@
 					   <i class="fa fa-user-circle"></i>
 					 </span>
 					<!--   user name Input-->
-					 <input class="form-input" id="txt-input" type="text" placeholder="@UserName" required>
+					 <input class="form-input" id="username" type="text" placeholder="@UserName" required>
 				 
 				  <br>
 				 
@@ -62,7 +62,7 @@
 					<i class="fa fa-key"></i>
 				   </span>
 				  <!--   Password Input-->
-				  <input class="form-input" type="password" placeholder="Password" id="pwd"  name="password" required>
+				  <input class="form-input" type="password" placeholder="Password" id="password"  name="password" required>
 				 
 			<!--      Show/hide password  -->
 				 <span>
@@ -73,7 +73,7 @@
 				  <br>
 			<!--        buttons -->
 			<!--      button LogIn -->
-				  <button class="log-in"> Log In </button>
+				  <button id="login" class="log-in"> Log In </button>
 			   </div>
 			  
 			<!--   other buttons -->
@@ -119,9 +119,10 @@
 					body: JSON.stringify(userData)
 				})
 				response = await request.json();
-				if (response.msg == "success") {
-					location.href = "/";
-				}
+				console.log(response)
+				// if (response.msg == "success") {
+				// 	location.href = "/";
+				// }
 				
 				
 			}

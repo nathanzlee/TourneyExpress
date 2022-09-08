@@ -46,9 +46,10 @@
                     },
                     body: JSON.stringify(userData)
                 }).then(res => res.json()).then(data => {
-                    if (data.msg == 'Success') {
-                        location.href = '/login';
-                    }
+                    // if (data.msg == 'Success') {
+                    //     location.href = '/login';
+                    // }
+                    console.log(data)
                 });
             })
         </script>

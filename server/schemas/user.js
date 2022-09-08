@@ -3,8 +3,8 @@ import mongoose from "mongoose"
 const userSchema = mongoose.Schema({
     firstName: {type: String},
     lastName: {type: String},
-    username: {type: String},
-    email: {type: String},
+    username: {type: String, unique: true},
+    email: {type: String, unique: true},
     phone: {type: String},
     dateJoined: {type: Date},
     password: {type: String},
