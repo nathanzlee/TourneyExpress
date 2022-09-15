@@ -94,17 +94,17 @@ app.get("/logout", (req, res) => {
 });
 
 app.get("/tournaments", isAuth, (req, res) => {
-  const filePath = path.join(__dirname, "../client/tourney_list.html");
+  const filePath = path.join(__dirname, "/tourney_list.html");
   res.sendFile(filePath);
 });
 
 app.get("/tournaments/create", isAuth, (req, res) => {
-  const filePath = path.join(__dirname, "../client/new_tourney.html");
+  const filePath = path.join(__dirname, "/new_tourney.html");
   res.sendFile(filePath);
 });
 
 app.get("/dashboard", isAuth, (req, res) => {
-  const filePath = path.join(__dirname, "../client/dashboard.html");
+  const filePath = path.join(__dirname, "/dashboard.html");
   res.sendFile(filePath);
 });
 
