@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .event {
+                display: flex;
+                flex-direction: row;
+            }
+            .age, .rating {
+                display: flex;
+                flex-direction: row;
+            }
+        </style>
+    </head>
+    <body>
+        <span>Tournament Name: </span><input id="Name" type="text" placeholder="name"><br>
+        <span>Start Date: </span><input id = "StartDate" type = "date"><br>
+        <span>End Date: </span><input id = "EndDate" type = "date"><br>
+        <span>Upload Entry Form: </span><input id = "EntryForm" type="file" name="upload" accept="application/pdf,application/vnd.ms-excel" /><br>
+        <span>Contact Name: </span><input id="ContactName" type="text" placeholder="name"><br>
+        <span>Contact Phone Number: </span><input id="ContactPhone" type="text" placeholder="000-000-0000"><br>
+        <span>Contact Email Address: </span><input id="ContactEmail" type="text" placeholder="tourney.director@tourneyexpress.com"><br>
+        <span>Add Event</span><button class="add">Add</button>
+        <div id="event_list"></div>
+        <button class = "create"> Create Tournament </button>
+        <script>
+            const $add = document.querySelector('.add');
+            const $event = document.querySelector('#event');
+            const eventList = document.querySelector("#event_list");
+
+            $add.addEventListener('click', () => {
+
+                var new_event = 
+                `
+                    <div class="event">
+                        <div class="eventName"><input type="text" placeholder="Open Singles"></div>
+                        <div class="format">
+                            <select>
+                                <option>RR</option>
+                                <option>SE</option>
+                            </select>
+                        </div>
+                        <div class="age"><input type="number" placeholder="minAge"><input type="number" placeholder="maxAge"></div>
+                        <div class="rating"><input type="number" placeholder="minRating"><input type="number" placeholder="maxRating"></div>
+                        <div class="capacity"><input type="number"></div>
+                        <div class="fee"><input type="number"></div>
+                        <div class="remove"><button>Remove</button></div>
+                    </div>
+                `;
+                
+                const t = document.createElement('div')
+                t.innerHTML = new_event;
+                eventList.appendChild(t);
+            })
+
+
+            const $create = document.querySelector('.create');
+            $create.addEventListener('click', () => {
+                const Name = document.querySelector('#Name').value
+                , startDate = document.querySelector('#StartDate').valueAsDate
+                , endDate = document.querySelector('#EndDate').valueAsDate
+                , EntryForm = document.querySelector('#EntryForm').value
+                , ContactEmail = document.querySelector('#ContactEmail').value
+                , ContactPhone = document.querySelector('#ContactPhone').value
+                , ContactName = document.querySelector('#ContactName').value
+                , Events = document.querySelector('#event_list').forEach(element => {
+                    
+                });;
+
+                const userData = {rating: rating, firstName: firstName, lastName: lastName, username: username, email: email, phone: phone, dateJoined: new Date(), password: password, salt: '', tourneys: [], gender: gender, birthdate: birthdate, club: club};
+                console.log(userData);
+                const res = fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                }).then(res => res.json()).then(data => {
+                    if (data.msg == 'Success') {
+                        location.href = '/login';
+                    }
+                });
+            })
+            
+        </script>
+    </body>
+</html>
