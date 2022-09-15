@@ -1,0 +1,67 @@
+.wrapper {
+    display: grid;
+    grid-template-rows: 100px 1fr;
+}
+
+#filterBox, #tourneyList {
+    border-radius: 10px;
+    margin: 10px 30px 10px 30px;
+}
+
+#filterBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#filterBox > div {
+    margin: 10px;
+}
+
+#tourneyList {
+    display: grid;
+    grid-template-rows: 30px 1fr;
+    height: 70vh;
+}
+
+#listHeader {
+    display: grid;
+    grid-template-columns: 8% 37% 15% 20% 20%;
+    border-bottom: 1px solid #6b5dd1;
+    width: 100%;
+}
+
+#listHeader > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#listTable {
+    overflow: auto;
+}
+
+.tourney {
+    display: grid;
+    grid-template-columns: 8% 37% 15% 20% 20%;
+    height: 50px;
+    width: 99.8%;
+    margin: 5px 0 5px 0;
+    background-color: #EEEEEE;
+}
+
+.tourney > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.name {
+    font-size: 15px;
+}
+

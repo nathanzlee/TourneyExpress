@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <input id="firstName" type="text" placeholder="first name">
+        <input id="lastName" type="text" placeholder="last name">
+        <input id="username" type="text" placeholder="username">
+        
+        <input id="email" type="text" placeholder="email">
+        <input id="phone" type="text" placeholder="phone number">
+        <input id="password" type="password" placeholder="password">
+        <select id = "gender">
+            <option value = "male"> male </option>
+            <option value = "female"> female </option>
+        </select> 
+        <select id = "club">
+            <option value = "TTA"> TTA </option>
+            <option value = "ICC"> ICC </option>
+            <option value = "888"> 888 </option>
+            <option value = "PongPlanet"> Pong Planet </option>
+        </select>
+        <input id = "birthdate" type = "date">
+        <button class = "newuser"> Sign Up </button>
+        <input id="rating" type="number" placeholder="rating">
+
+        <script>
+            const $newuser = document.querySelector('.newuser');
+
+            $newuser.addEventListener('click', () => {
+                const firstName = document.querySelector('#firstName').value
+                , lastName = document.querySelector('#lastName').value
+                , username = document.querySelector('#username').value
+                , email = document.querySelector('#email').value
+                , phone = document.querySelector('#phone').value
+                , password = document.querySelector('#password').value
+                , gender = document.querySelector('#gender').value
+                , birthdate = document.querySelector('#birthdate').valueAsDate
+                , club = document.querySelector("#club").value
+                , rating = document.querySelector("#rating").value;
+
+                const userData = {rating: rating, firstName: firstName, lastName: lastName, username: username, email: email, phone: phone, dateJoined: new Date(), password: password, salt: '', tourneys: [], gender: gender, birthdate: birthdate, club: club};
+                console.log(userData);
+                const res = fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(userData)
+                }).then(res => res.json()).then(data => {
+                    // if (data.msg == 'Success') {
+                    //     location.href = '/login';
+                    // }
+                    console.log(data)
+                });
+            })
+        </script>
+    </body>
+</html>

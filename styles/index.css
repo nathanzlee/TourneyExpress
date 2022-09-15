@@ -1,0 +1,37 @@
+.wrapper {
+    display: grid;
+    grid-template-areas: "m m tr"
+                         "m m r"
+                         "bl b br";
+    gap: 10px;
+    padding: 10px;
+}
+
+.wrapper > div {
+    background-color: white;
+}
+
+#mainTourney {
+    grid-area: m;
+    background-image: url('https://www.teamusa.org/-/media/USA_Table_Tennis/Images/News/2022/March/Major-Event-Task-Force.jpg');
+}
+
+#topRight {
+    grid-area: tr;
+}
+
+#right {
+    grid-area: r;
+}
+
+#bottomLeft {
+    grid-area: bl;
+}
+
+#bottom {
+    grid-area: b;
+}
+
+#bottomRight {
+    grid-area: br;
+}

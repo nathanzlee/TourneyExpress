@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel = "stylesheet" href = "/styles.css">
+        <link rel = "stylesheet" href = "/dashboard.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <span>TourneyExpress</span>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><a href="/tournaments">Tournaments</a></li>
+                    <li><a href="/login">Login</a></li>
+                </ul>
+            </div>
+        </header>
+        <div class = "general info">
+            <ul>
+                <li>USATT Tournament Rating: </li>
+                <li>USATT League Rating: </li>
+                <li>Tournaments Played: </li>
+                <li>Leagues Registered In: </li>
+            </ul>
+            <ul id = "tournaments">
+            </ul>
+        </div>
+        <!-- <div class="wrapper">
+            <div class="infoHeader">
+                <div class="tabContainer">
+                    <div class="tab">Info</div>
+                    <div class="tab">Players</div>
+                </div>
+                <div class="filterBox">
+                    <span>Filter by:</span>
+                    <select>
+                        <option>Players</option>
+                        <option>Events</option>
+                    </select>
+                </div>
+            </div>
+            <div class="infoBox"></div>
+        </div> -->
+        <script>
+            async function getuserinfo() {
+                request = await fetch('/dashboard/info')
+                response = await request.json();
+                console.log(response)
+                return response
+            }
+            const userinfo = getuserinfo()
+            const tourneyList = document.querySelector("#tournaments")
+            userinfo.tourneys.forEach(tourney => {
+                const t = document.createElement("li")
+                t.innerText = tourney.name
+                tourneyList.appendChild(t)
+            });
+        </script>
+    </body>
+</html>
